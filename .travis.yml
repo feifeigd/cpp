@@ -6,6 +6,10 @@ os:
 compiler:
     - clang
     - gcc
+    
+    before_install:
+        - if [[ $TRAVIS_OS_NAME == linux && `cmake --version | awk -F' ' '{print $3}'` < '3.2.2' ]]; then chmod +x ./scripts/before_install_ubuntu.sh && ./scripts/before_install_ubuntu.sh; fi
+    
 before_script:
     - mkdir -p build && cd build && cmake .. 
 script:
