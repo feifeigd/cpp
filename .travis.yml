@@ -9,5 +9,6 @@ compiler:
 before_script:
     - mkdir -p build && cd build && cmake .. 
 script:
-    - make -j8
+    - make -j8 
+    - ./r-value_reference/r-value_reference
     
