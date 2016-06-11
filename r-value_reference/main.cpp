@@ -23,7 +23,23 @@ A GetA(){
 	return A();
 }
 
+void PrintValue(int& i){
+	cout << "lvalue:" << i << endl;
+}
+
+void PrintValue(int&& i){
+	cout << "rvalue:" << i << endl;
+}
+
+void Forward(int&& i){
+	PrintValue(i);
+}
+
 int main(){
 	A && a = GetA();
+	int i = 0;
+	PrintValue(i);
+	PrintValue(1);
+	Forward(2);
 	return 0;
 }
