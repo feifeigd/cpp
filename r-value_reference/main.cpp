@@ -24,6 +24,6 @@ A GetA(){
 }
 
 int main(){
-	A a = GetA();
+	A && a = GetA();
 	return 0;
 }
