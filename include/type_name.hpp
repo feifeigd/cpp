@@ -31,7 +31,7 @@ std::string type_name(){
 
 template<typename T>
 void Func(T&& t){
-	std::cout << type_name<T>() << endl;
+	std::cout << type_name<T>() << std::endl;
 }
 
 // 测试代码
