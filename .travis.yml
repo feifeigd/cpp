@@ -9,6 +9,7 @@ compiler:
     - gcc
     
 before_install:
+    - gcc --version
     - cmake --version
     - if [[ $TRAVIS_OS_NAME == linux && `cmake --version | awk -F' ' '{print $3}'` < '3.2.2' ]]; then chmod +x ./scripts/before_install_ubuntu.sh && ./scripts/before_install_ubuntu.sh; fi
 
