@@ -1,4 +1,5 @@
-#include <iostream>
+#include <type_name.hpp>
+// #include <iostream>
 using namespace std;
 
 int g_constructCount = 0;
@@ -41,5 +42,6 @@ int main(){
 	PrintValue(i);
 	PrintValue(1);
 	Forward(2);
+	TestReference();
 	return 0;
 }

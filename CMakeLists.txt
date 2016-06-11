@@ -5,5 +5,5 @@ project(cpp)
 if(UNIX)
 	add_definitions(-std=c++11)
 endif()
-
+include_directories(include)
 add_subdirectory(r-value_reference)
