@@ -26,10 +26,12 @@ addons: &addons
             - libstdc++-5-dev
 before_script:
     - |
-        case "$CXX" in #(
-        g++*) CXX=g++-5 #(
-        ;;
-        esac
+        if [ $TRAVIS_OS_NAME = linux ]; then
+            case "$CXX" in #(
+            g++*) CXX=g++-5
+            ;;
+            esac
+        fi
     - |
         case "$CC" in #(
         gcc*) CC=gcc-5 #(
