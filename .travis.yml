@@ -14,7 +14,7 @@ before_install:
     - cmake --version
     - |
         if [ $TRAVIS_OS_NAME = linux ]; then
-            sudo apt-get remove -y gcc # 卸载旧版本
+            # sudo apt-get remove -y gcc # 卸载旧版本
             if [[ `cmake --version | awk -F' ' '{print $3}'` < '3.2.2' ]]; then chmod +x ./scripts/before_install_ubuntu.sh && ./scripts/before_install_ubuntu.sh; fi
         fi
 
@@ -28,20 +28,20 @@ addons: &addons
             - g++-5
             - libstdc++-5-dev
 before_script:
-    # - |
-        # if [ $TRAVIS_OS_NAME = linux ]; then
-            # case "$CXX" in #(
-            # g++*) CXX=g++-5
-            # ;;
-            # esac
-        # fi
-    # - |
-        # if [ $TRAVIS_OS_NAME = linux ]; then
-            # case "$CC" in #(
-                # gcc*) CC=gcc-5
-                # ;;
-            # esac
-        # fi
+    - |
+        if [ $TRAVIS_OS_NAME = linux ]; then
+            case "$CXX" in #(
+            g++*) CXX=g++-5
+            ;;
+            esac
+        fi
+    - |
+        if [ $TRAVIS_OS_NAME = linux ]; then
+            case "$CC" in #(
+                gcc*) CC=gcc-5
+                ;;
+            esac
+        fi
     # - if [ $TRAVIS_OS_NAME = linux ]; then export CXX CC; fi
     - $CXX --version && $CC --version && cmake --version
     - mkdir -p build && cd build && cmake .. 
