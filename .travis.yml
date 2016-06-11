@@ -20,6 +20,7 @@ addons: &addons
             - ubuntu-toolchain-r-test
             - ubuntu-sdk-team
         packages:
+            - cmake
             - gcc-5
             - g++-5
             - libstdc++-5-dev
@@ -35,7 +36,7 @@ before_script:
         ;;
         esac
     - export CXX CC
-    - mkdir -p build && cd build && cmake .. 
+    - mkdir -p build && cd build && $CXX --version && cmake --version && cmake .. 
 script:
     - make -j8 
     - ./r-value_reference/r-value_reference
