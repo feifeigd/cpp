@@ -36,7 +36,7 @@ void Func(T&& t){
 
 // 测试代码
 void TestReference(){
-	string str = "test";
+	std::string str = "test";
 	Func(str);
 	Func(std::move(str));
 }
