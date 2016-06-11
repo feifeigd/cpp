@@ -12,8 +12,11 @@ compiler:
     
 before_install:
     - cmake --version
-    - sudo apt-get remove gcc # 卸载旧版本
-    - if [[ $TRAVIS_OS_NAME == linux && `cmake --version | awk -F' ' '{print $3}'` < '3.2.2' ]]; then chmod +x ./scripts/before_install_ubuntu.sh && ./scripts/before_install_ubuntu.sh; fi
+    - |
+        if [ $TRAVIS_OS_NAME = linux ]; then
+            sudo apt-get remove gcc # 卸载旧版本
+            if [[ `cmake --version | awk -F' ' '{print $3}'` < '3.2.2' ]]; then chmod +x ./scripts/before_install_ubuntu.sh && ./scripts/before_install_ubuntu.sh; fi
+        fi
 
 addons: &addons
     apt:
