@@ -9,7 +9,16 @@ compiler:
     
 before_install:
     - if [[ $TRAVIS_OS_NAME == linux && `cmake --version | awk -F' ' '{print $3}'` < '3.2.2' ]]; then chmod +x ./scripts/before_install_ubuntu.sh && ./scripts/before_install_ubuntu.sh; fi
-    
+install:
+    - if [ "$CXX = "g++" ]; then export CXX="g++5" CC="gcc-5"; fi 
+addons:
+    apt:
+        sources:
+            - ubuntu-toolchain-r-test
+        packages:
+            - gcc-5
+            - g++-5
+            
 before_script:
     - mkdir -p build && cd build && cmake .. 
 script:
