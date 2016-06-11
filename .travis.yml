@@ -35,7 +35,7 @@ before_script:
         gcc*) CC=gcc-5 #(
         ;;
         esac
-    - export CXX CC
+    - if [ $TRAVIS_OS_NAME = linux ]; then export CXX CC; fi
     - mkdir -p build && cd build && $CXX --version && cmake --version && cmake .. 
 script:
     - make -j8 
