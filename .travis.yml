@@ -25,21 +25,22 @@ addons: &addons
             - g++-5
             - libstdc++-5-dev
 before_script:
-    - |
-        if [ $TRAVIS_OS_NAME = linux ]; then
-            case "$CXX" in #(
-            g++*) CXX=g++-5
-            ;;
-            esac
-        fi
-    - |
-        if [ $TRAVIS_OS_NAME = linux ]; then
-            case "$CC" in #(
-                gcc*) CC=gcc-5
-                ;;
-            esac
-        fi
-    - if [ $TRAVIS_OS_NAME = linux ]; then export CXX CC; fi
+    # - |
+        # if [ $TRAVIS_OS_NAME = linux ]; then
+            # case "$CXX" in #(
+            # g++*) CXX=g++-5
+            # ;;
+            # esac
+        # fi
+    # - |
+        # if [ $TRAVIS_OS_NAME = linux ]; then
+            # case "$CC" in #(
+                # gcc*) CC=gcc-5
+                # ;;
+            # esac
+        # fi
+    # - if [ $TRAVIS_OS_NAME = linux ]; then export CXX CC; fi
+    - $CXX --version && $CC --version
     - mkdir -p build && cd build && $CXX --version && cmake --version && cmake .. 
 script:
     - make -j8 
