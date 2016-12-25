@@ -1,16 +1,16 @@
-
+ï»¿
 #include <Semaphore.h>
 #include <vector>
 #include <iostream>
 #include <algorithm>
-
+#include <thread>
 using namespace std;
 
-// ÈÎÎñ¶ÓÁĞ
+// ä»»åŠ¡é˜Ÿåˆ—
 vector<int> tasks;
 mutex g_tasks_mutex;
 
-// »º³åÇø´óĞ¡
+// ç¼“å†²åŒºå¤§å°
 size_t const max_queue_size = 100;
 
 size_t const test_count = 30;
@@ -22,20 +22,20 @@ void producer() {
 	size_t count = test_count;
 	while (count--)
 	{
-		g_full_s.P();	// ¶ÓÁĞÂúÁËÂğ£¿
+		g_full_s.P();	// é˜Ÿåˆ—æ»¡äº†å—ï¼Ÿ
 		std::unique_lock<std::mutex> lock(g_tasks_mutex);
 		int task = rand();
 		cout << "thread producer:task=" << task << endl;
 		tasks.push_back(task);
-		g_empty_s.V();	//	ÈûÈëÁËÒ»¸ö
+		g_empty_s.V();	//	å¡å…¥äº†ä¸€ä¸ª
 	}
 }
 
 void consumer() {
 	size_t count = test_count;
-	while (count)	// Âß¼­Ñ­»·
+	while (count)	// é€»è¾‘å¾ªç¯
 	{
-		// Ò»´ÎĞÔÏûºÄÍêµ±Ç°¶ÓÁĞ
+		// ä¸€æ¬¡æ€§æ¶ˆè€—å®Œå½“å‰é˜Ÿåˆ—
 		vector<int> tmp;
 		{
 			size_t size = 0;
@@ -45,17 +45,17 @@ void consumer() {
 			}
 			while (size--)
 			{
-				g_empty_s.P();	// ¶ÓÁĞÊÇ·ñÎª¿Õ£¿
+				g_empty_s.P();	// é˜Ÿåˆ—æ˜¯å¦ä¸ºç©ºï¼Ÿ
 				std::unique_lock<std::mutex> lock(g_tasks_mutex);
 				tmp.push_back(tasks[0]);
 				tasks.erase(tasks.begin());
-				g_full_s.V();	// ÏûºÄÁËÒ»¸ö
+				g_full_s.V();	// æ¶ˆè€—äº†ä¸€ä¸ª
 			}
 		}
-		// Ò»´ÎĞÔ»ñµÃµ±Ç°ËùÓĞ
+		// ä¸€æ¬¡æ€§è·å¾—å½“å‰æ‰€æœ‰
 		if (tmp.size())
 		{
-			std::unique_lock<std::mutex> lock(g_tasks_mutex);	// ÕâĞĞÊÇ±£»¤¿ØÖÆÌ¨
+			std::unique_lock<std::mutex> lock(g_tasks_mutex);	// è¿™è¡Œæ˜¯ä¿æŠ¤æ§åˆ¶å°
 			cout << "thread consumer:task=";
 			for_each(tmp.begin(), tmp.end(), [&](int task) {
 				cout << task << ",";
